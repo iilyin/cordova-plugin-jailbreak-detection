@@ -10,6 +10,24 @@
 
 @implementation JailbreakDetection
 
+- (void) pluginInitialize {
+    @try
+    {
+        bool jailbroken = [self jailbroken];
+        if (jailbroken) {
+            [[[UIAlertView alloc] initWithTitle:nil message:@"We are unable to open the TGH GO app due to your device’s configuration." delegate:self cancelButtonTitle:@"Close" otherButtonTitles: nil] show];
+        }
+    }
+    @catch (NSException *exception)
+    {
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    exit(0);
+}
+
 - (void) isJailbroken:(CDVInvokedUrlCommand*)command;
 {
     CDVPluginResult *pluginResult;
